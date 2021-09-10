@@ -176,3 +176,21 @@ N = 1
 - Finding an element in a Balanced Binary Search Tree is *O(log N)*.
 
 ## Recursive Runtimes
+```java
+int f(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return f(n - 1) + f(n - 1);
+}
+```
+- What is the runtime of the above?
+- People would say *O(N<sup>2</sup>)* because we call f twice.
+    - Not correct!
+- We can walk through the code.
+- We can represent recursive calls with a resursive tree.
+- How many calls are in the tree?
+- The tree have a depth of *N*. Each node has two children. Each level will have twice as many calls as the one above it.
+|Level|# Nodes|Also expressed as...|Or...|
+|-----|-------|--------------------|-----|
+|0|1||2<sup>0</sup>|
