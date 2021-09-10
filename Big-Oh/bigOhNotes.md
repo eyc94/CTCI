@@ -199,3 +199,17 @@ Level | # Nodes | Also expressed as... | Or...
 2|4|2 * previous level = 2 * 2<sup>1</sup> = 2<sup>2</sup>|2<sup>2</sup>
 3|8|2 * previous level = 2 * 2<sup>2</sup> = 2<sup>3</sup>|2<sup>3</sup>
 4|16|2 * previous level = 2 * 2<sup>3</sup> = 2<sup>4</sup>|2<sup>4</sup>
+
+- There will be 2<sup>0</sup> + 2<sup>1</sup> + 2<sup>2</sup> + 2<sup>3</sup> + ... + 2<sup>N</sup> (which is 2<sup>N + 1</sup> - 1) nodes.
+- Remember this pattern:
+    - When you have a recursive function that makes multiple calls, the runtime will often look like O(branches<sup>depth</sup>), where branches is the number of times each recursive call branches.
+    - In this case, *O(2<sup>N</sup>)*.
+- Base of an exponent matters.
+    - Compare 2<sup>*N*</sup> with 8<sup>*N*</sup>.
+    - If you expand 8<sup>*N*</sup>, you get (2<sup>3</sup>)<sup>*N*</sup> which is 2<sup>*3N*</sup>.
+    - This then equals 2<sup>2*N*</sup> * 2<sup>*N*</sup>.
+    - Different by a factor of 2<sup>2*N*</sup>. This is **not** a constant factor! So, we cannot ignore this.
+- Space complexity will be *O(N)*.
+    - We have *O(2<sup>N</sup>)* nodes in the tree total but only *O(N)* exists at a given time.
+
+## Examples and Exercises
