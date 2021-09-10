@@ -342,3 +342,52 @@ void reverse(int[] array) {
         - Yes because log *N* is smaller than *N* and *N* dominates in the long run.
     4. *O(N + M)*.
         - No because we do not know if *M* = *N*. We have no info on *M*.
+
+#### Example 8
+- We have an algorithm that takes in an array of strings, sorted each string, and then sorted the full array.
+    - What is the runtime?
+- Most would say this:
+    1. Sorting each string is *O(N log N)*.
+    2. We have to do this for each string, so *O(N * N log N)*.
+    3. We have to sort the array, so that's another *O(N log N)*.
+    4. Total runtime is *O(N<sup>2</sup> log N + N log N)* which is just *O(N<sup>2</sup> log N)*.
+- This is wrong because *N* represents both the length of the string and length of the array!
+    - They're not always equal length!!
+- Let's fix this:
+    1. Define *s* to be length of longest string.
+    2. Define *a* to be length of array.
+    3. Sorting each string is *O(s log s)*.
+    4. Do this for each string in the array, so *O(a * s log s)* because there are *a* strings.
+    5. Now sort strings.
+    6. You need to compare the strings. Each string comparison takes *O(s)* time.
+    7. There are *O(a log a)* comparisons. Therefore, *O(a * s log a)*.
+    8. Add these two parts to get *O(a * s(log a + log s))*.
+
+#### Example 9
+- This code sums the values of all nodes in a Balanced Binary Search Tree.
+```java
+int sum(Node node) {
+    if (node == null) {
+        return 0;
+    }
+    return sum(node.left) + node.value + sum(node.right);
+}
+```
+- Two ways to look at this:
+    - **What It Means**:
+        - This code touches each node in the tree.
+        - This does constant work for each touch (not recursive calls).
+        - The runtime will be linear in terms of the number of nodes.
+        - *N* nodes means *O(N)* runtime.
+    - **Recursive Pattern**:
+        - We discussed pattern for recursive calls to be branches.
+        - Runtime is typically *O(branches<sup>depth</sup>)*.
+        - There are 2 branches at each call, so *O(2<sup>depth</sup>)*.
+        - Look exponential so it looks wrong!
+        - We have an exponential time algorithm but it's not as bad.
+        - Consider what variable it's exponential with respect to.
+        - What is depth? Tree is balanced binary search tree. If there are *N* total nodes, then depth is log *N*.
+        - Therefore, *O(2<sup>log N</sup>)*.
+            - Recall, 2<sup>*P*</sup> = *Q* -> log<sub>2</sub>*Q* = *P*.
+            - Therefore, 2<sup>log *N*</sup> = *N*.
+        - Runtime overall is *O(N)*.
