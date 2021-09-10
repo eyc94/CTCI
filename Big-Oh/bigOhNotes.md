@@ -199,4 +199,4 @@ int f(int n) {
 
 Level | # Nodes | Also expressed as... | Or...
 ---|---|---|---
-0|1|x|2<sup>0</sup>
+0|1||2<sup>0</sup>
