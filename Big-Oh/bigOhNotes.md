@@ -195,3 +195,7 @@ int f(int n) {
 Level | # Nodes | Also expressed as... | Or...
 ---|---|---|---
 0|1||2<sup>0</sup>
+1|2|2 * previous level = 2|2<sup>1</sup>
+2|4|2 * previous level = 2 * 2<sup>1</sup> = 2<sup>2</sup>
+3|8|2 * previous level = 2 * 2<sup>2</sup> = 2<sup>3</sup>
+4|16|2 * previous level = 2 * 2<sup>3</sup> = 2<sup>4</sup>
