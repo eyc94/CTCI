@@ -137,3 +137,42 @@ for (int a : arrA) {
 - In the second code, we do *B* amount of work for each element in *A*.
 
 ## Amortized Time
+- An `ArrayList`, or a dynamically resizing array, allows you to have benefits of an array while being any size it wants.
+- You cannot run out of space.
+- When it reaches capacity, the `ArrayList` will create a new array with double the size of the old and copy over the old to the new array.
+- If array is full, insertion takes *O(N)* time.
+- Majority of the time, insertion will take *O(1)* time because it's not full.
+- Amortized time takes both into account.
+- We double capacity at 1, 2, 4, 8, 16, 32, ... X. It also takes that many copies in the worst case.
+- Amortized time for insertion is *O(1)*.
+
+## Log N Runtimes
+- Look at Binary Search.
+- We look for a value *X* in an *N*-element sorted array.
+- Check if midpoint is equal to *X*.
+- If it is, we found it. If it is greater, look at left half. It it is less, look at right half.
+```
+search 9 within {1, 5, 8, 9, 11, 13, 15, 19, 21}
+    compare 9 to 11 -> smaller.
+    search 9 within {1, 5, 8, 9, 11}
+        compare 9 to 8 -> bigger
+        search 9 within {9, 11}
+            compare 9 to 9
+            return
+```
+- We start with *N* element array. It is then cut to *N*/2 elements. Then to *N*/4 elements.
+- We stop when we find the element or when we're down to just one element.
+- Total runtime is just how many divides by 2 we can do to *N* until we reach 1.
+```java
+N = 16
+N = 8
+N = 4
+N = 2
+N = 1
+```
+- What is *k* in *2<sup>k</sup>* = *N*.
+- *log<sub>2</sub>N* = *k* -> *2<sup>k</sup>* = *N*.
+- When a problem gets halved every time, it's usually *O(log N)* runtime.
+- Finding an element in a Balanced Binary Search Tree is *O(log N)*.
+
+## Recursive Runtimes
