@@ -331,3 +331,14 @@ void reverse(int[] array) {
 ```
 - This only goes through half of our array.
 - Runtime is *O(N)*.
+
+#### Example 7
+- Which are equivalent to *O(N)*? Why?
+    1. *O(N + P)*, where *P* < *N*/2.
+        - Yes because *P* is going to be smaller than *N*, *N* is the dominant term.
+    2. *O(2N)*.
+        - Yes because we drop the coefficient/constant 2.
+    3. *O(N + log N)*.
+        - Yes because log *N* is smaller than *N* and *N* dominates in the long run.
+    4. *O(N + M)*.
+        - No because we do not know if *M* = *N*. We have no info on *M*.
