@@ -246,7 +246,7 @@ void printPairs(int[] array) {
 - The work done in the inner loop is constant *O(1)*.
 - The total work done is *O(N<sup>2</sup>)*.
 
-## Example 3
+#### Example 3
 ```java
 void printUnorderedPairs(int[] array) {
     for (int i = 0; i < array.length; i++) {
