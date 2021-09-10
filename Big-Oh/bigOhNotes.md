@@ -191,6 +191,6 @@ int f(int n) {
 - We can represent recursive calls with a resursive tree.
 - How many calls are in the tree?
 - The tree have a depth of *N*. Each node has two children. Each level will have twice as many calls as the one above it.
-| Level | # Nodes | Also expressed as... | Or... |
-|---|---|---|---|
-|0|1||2<sup>0</sup>|
+Level | # Nodes | Also expressed as... | Or...
+---|---|---|---
+0|1|x|2<sup>0</sup>
