@@ -213,3 +213,76 @@ Level | # Nodes | Also expressed as... | Or...
     - We have *O(2<sup>N</sup>)* nodes in the tree total but only *O(N)* exists at a given time.
 
 ## Examples and Exercises
+#### Example 1
+```java
+void foo(int[] array) {
+    int sum = 0;
+    int product = 1;
+    for (int i = 0; i < array.length; i++) {
+        sum += array[i];
+    }
+    for (int i = 0; i < array.length; i++) {
+        product *= array[i];
+    }
+    System.out.println(sum + ", " + product);
+}
+```
+- The first two lines are constant.
+- The two for loops each take *O(N)* time.
+- This will take *O(N)* time. Iterating through array twice makes no difference on runtime.
+
+#### Example 2
+```java
+void printPairs(int[] array) {
+    for (int i = 0; i < array.length; i++) {
+        for (int j = 0; j < array.length; j++) {
+            System.out.println(array[i] + ", " + array[j]);
+        }
+    }
+}
+```
+- The inner for loop runs the length of the array *N* for every loop in the outer loop.
+- The outer loop also spans the length of the array.
+- The work done in the inner loop is constant *O(1)*.
+- The total work done is *O(N<sup>2</sup>)*.
+
+## Example 3
+```java
+void printUnorderedPairs(int[] array) {
+    for (int i = 0; i < array.length; i++) {
+        for (int j = i + 1; j < array.length; j++) {
+            System.out.println(array[i] + ", " + array[j]);
+        }
+    }
+}
+```
+- The inner loop does one less work than the previous iteration for every iteration of the outer loop.
+- We can solve in several ways:
+    - **Counting the Iterations**:
+        - In the first iteration, *j* runs for *N* - 1 steps. The second, it's *N* - 2 steps. Then *N* - 3 steps. And so on.
+        - The total steps is (*N* - 1) + (*N* - 2) + (*N* - 3) + ... + 2 + 1.
+        - This equals 1 + 2 + 3 + ... + *N* - 1.
+        - This is the sum from 1 to *N* - 1.
+        - Sum of 1 to *N* - 1 is *N*(*N* - 1)/2.
+        - Runtime is *O(N<sup>2</sup>)*.
+    - **What It Means**:
+        - It iterates through each pair of values (*i*, *j*) where *j* > *i*.
+        - There are *N*<sup>2</sup> total pairs. Half of them will have *i* < *j* and other half *i* > *j*.
+        - Code goes through about *N*<sup>2</sup>/2 pairs.
+    - **Visualizing What It Does**:
+        ```
+        (0, 1) (0, 2) (0, 3) (0, 4) (0, 5) (0, 6) (0, 7)
+               (1, 2) (1, 3) (1, 4) (1, 5) (1, 6) (1, 7)
+                      (2, 3) (2, 4) (2, 5) (2, 6) (2, 7)
+                             (3, 4) (3, 5) (3, 6) (3, 7)
+                                    (4, 5) (4, 6) (4, 7)
+                                           (5, 6) (5, 7)
+                                                  (6, 7)
+        ```
+        - This is half a *N* x *N* matrix.
+    - **Average Work**:
+        - Outer loop runs *N* times.
+        - Inner loop varies in each iteration, but we can think of the average iteration.
+        - What is average value of 1, 2, 3, 4, 5, 6, 7, 8, 9, 10? It is 5.
+        - What about for 1, 2, 3, ..., *N*? It is *N*/2.
+        - Inner loop does about *N*/2 work and runs *N* times, so it's *N*<sup>2</sup>/2.
