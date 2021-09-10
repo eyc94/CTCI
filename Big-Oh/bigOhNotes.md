@@ -192,11 +192,6 @@ int f(int n) {
 - How many calls are in the tree?
 - The tree have a depth of *N*. Each node has two children. Each level will have twice as many calls as the one above it.
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-
 Level | # Nodes | Also expressed as... | Or...
 ---|---|---|---
 0|1||2<sup>0</sup>
