@@ -288,3 +288,46 @@ void printUnorderedPairs(int[] array) {
         - Inner loop does about *N*/2 work and runs *N* times, so it's *N*<sup>2</sup>/2.
 
 #### Example 4
+```java
+void printUnorderedPairs(int[] arrayA, int[] arrayB) {
+    for (int i = 0; i < arrayA.length; i++) {
+        for (int j = 0; j < arrayB.length; j++) {
+            if (arrayA[i] < arrayB[j]) {
+                System.out.println(arrayA[i] + ", " + arrayB[j]);
+            }
+        }
+    }
+}
+```
+- The if statement in the inner loop does constant work.
+- The outer loop for *A* does constant work for every element of *B*.
+- The runtime is *O(AB)*.
+
+#### Example 5
+```java
+void printUnorderedPairs(int[] arrayA, int[] arrayB) {
+    for (int i = 0; i < arrayA.length; i++) {
+        for (int j = 0; j < arrayB.length; j++) {
+            for (int k = 0; k < 100000; k++) {
+                System.out.println(arrayA[i] + ", " + arrayB[j]);
+            }
+        }
+    }
+}
+```
+- The code in the inner loop is still constant because we're still always doing 100000 loops regardless of input size.
+- The runtime is same as Example 4, *O(AB)*.
+
+#### Example 6
+```java
+void reverse(int[] array) {
+    for (int i = 0; i <  array.length / 2; i++) {
+        int other = array.length - i - 1;
+        int temp = array[i];
+        array[i] = array[other];
+        array[other] = temp;
+    }
+}
+```
+- This only goes through half of our array.
+- Runtime is *O(N)*.
