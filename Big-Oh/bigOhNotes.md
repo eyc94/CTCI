@@ -286,3 +286,5 @@ void printUnorderedPairs(int[] array) {
         - What is average value of 1, 2, 3, 4, 5, 6, 7, 8, 9, 10? It is 5.
         - What about for 1, 2, 3, ..., *N*? It is *N*/2.
         - Inner loop does about *N*/2 work and runs *N* times, so it's *N*<sup>2</sup>/2.
+
+#### Example 4
