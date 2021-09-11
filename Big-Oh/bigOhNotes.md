@@ -410,4 +410,4 @@ boolean isPrime(int n) {
 - Work inside for loop is constant.
 - Just show how many iterations our for loop goes through in the worst case.
 - The for loop starts when *x* = 2 and ends when *x* * *x* = *n*.
-    - Or, when *x* = $\sqrt[n]{k}$
+    - Or, when *x* = *n*<sup>1/2</sup>.
