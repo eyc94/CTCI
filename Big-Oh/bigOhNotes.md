@@ -391,3 +391,23 @@ int sum(Node node) {
             - Recall, 2<sup>*P*</sup> = *Q* -> log<sub>2</sub>*Q* = *P*.
             - Therefore, 2<sup>log *N*</sup> = *N*.
         - Runtime overall is *O(N)*.
+
+#### Example 10
+- This code determines if a number is prime or not.
+- This is done by checking the divisibility on numbers less than *n*.
+- It goes up to the square root of *n*.
+    - If *n* is divisible by a number larger than *n*'s square root, then *n* is divisible by something smaller than it.
+```java
+boolean isPrime(int n) {
+    for (int x = 2; x * x <= n; x++) {
+        if (n % x == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+```
+- Work inside for loop is constant.
+- Just show how many iterations our for loop goes through in the worst case.
+- The for loop starts when *x* = 2 and ends when *x* * *x* = *n*.
+    - Or, when *x* = $\sqrt[n]{k}$
