@@ -411,3 +411,73 @@ boolean isPrime(int n) {
 - Just show how many iterations our for loop goes through in the worst case.
 - The for loop starts when *x* = 2 and ends when *x* * *x* = *n*.
     - Or, when *x* = *n*<sup>1/2</sup>.
+- The loop is basically the same as below:
+```java
+boolean isPrime(int n) {
+    for (int x = 2; x <= sqrt(n); x++) {
+        if (n % x == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+```
+- The runtime is *O(N<sup>1/2</sup>)*.
+
+#### Example 11
+- The following code computes *n*! (n factorial). What is the time complexity?
+```java
+int factorial(int n) {
+    if (n < 0) {
+        return -1;
+    } else if (n == 0) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+```
+- This is a straight recursion from *n* to *n* - 1 to *n* - 2 down to 1.
+- This will take *O(N)* time.
+
+#### Example 12
+- This code counts all permutations of a string.
+```java
+void permutation(String str) {
+    permutation(str, "");
+}
+
+void permutation(String str, String prefix) {
+    if (str.length() == 0) {
+        System.out.println(prefix);
+    } else {
+        for (int i = 0; i < str.length(); i++) {
+            String rem = str.substring(0, i) + str.substring(i + 1);
+            permutation(rem, prefix + str.charAt(i));
+        }
+    }
+}
+```
+- Look at how many times `permutation` gets called and how long each call takes.
+- Aim for tight bound.
+    - **How many times does permutation get called in its base case?**:
+        - If we were making a permutation, we need a character for each "slot".
+        - We have 7 characters in a string.
+        - Pick one character and we have 6 choices for the next slot. THen 5 for the next slot and so on.
+        - So, total number of options is 7 * 6 * 5 * 4 * 3 * 2 * 1, which is 7! (7 factorial).
+        - There are *n*! permutations.
+        - So, `permutation` is called *n*! times in its base case when `prefix` is the full permutation.
+    - **How many times does permutation get called before its base case?**:
+        - We also need to find out many times the for loop is hit.
+        - Imagine a large call tree representing all the calls.
+        - There are *n*! leaves.
+        - Each leaf is attached to a path of length *n*.
+        - We know, therefore, there will be no more than *n* * *n*! nodes in this tree.
+    - **How long does each function call take?**:
+        - Executing the print statement takes *O(N)* time because each character needs to be printed.
+        - The lines inside the for loop also takes *O(N)* time combined due to string concatenation.
+        - The sum of the lengths of `rem`, `prefix`, and `str.charAt(i)` will always be *n*.
+        - Each node in our tree therefore corresponds to *O(N)* work.
+    - **What is the total runtime?**:
+        - We are calling `permutation` *O(N * N!)* times (upper bound), and each one takes *O(N)* time.
+        - The total runtime will not exceed *O(N<sup>2</sup> * N!)*.
