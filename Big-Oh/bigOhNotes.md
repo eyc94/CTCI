@@ -481,3 +481,147 @@ void permutation(String str, String prefix) {
     - **What is the total runtime?**:
         - We are calling `permutation` *O(N * N!)* times (upper bound), and each one takes *O(N)* time.
         - The total runtime will not exceed *O(N<sup>2</sup> * N!)*.
+
+#### Example 13
+- The code below computes the Nth Fibonacci number.
+```java
+int fib(int n) {
+    if (n <= 0) return 0;
+    else if (n == 1) return 1;
+    return fib(n - 1) + fib(n - 2);
+}
+```
+- Use earlier pattern for recursive calls: *O(branches<sup>depth</sup>)*.
+- 2 branches per call and we go as deep as *N*.
+- There the runtime is *O(2<sup>N</sup>)*.
+
+#### Example 14
+- The code prints all Fibonacci numbers from 0 to *n*.
+```java
+void allFib(int n) {
+    for (int i = 0; i < n; i++) {
+        System.out.println(i + ": " + fib(i));
+    }
+}
+
+int fib(int n) {
+    if (n <= 0) return 0;
+    else if (n == 1) return 1;
+    return fib(n - 1) + fib(n - 2);
+}
+```
+- Many say that because `fib(n)` takes *O(2<sup>N</sup>)* time and it's called *N* times, then it's *O(N2<sup>N</sup>)*.
+- This is wrong.
+- The error is that *N* is changing.
+- Let's walk through each call.
+```
+fib(1) -> 2^1 steps
+fib(2) -> 2^2 steps
+fib(3) -> 2^3 steps
+fib(4) -> 2^4 steps
+...
+fib(n) -> 2^n steps
+```
+- Total work is 2<sup>1</sup> + 2<sup>2</sup> + 2<sup>3</sup> + 2<sup>4</sup> + ... + 2<sup>N</sup>.
+- This is 2<sup>N + 1</sup>.
+- Runtime is still *O(2<sup>N</sup>)*.
+
+#### Example 15
+- This code prints all Fibonacci numbers from 0 to *n*.
+- This time it stores (caches) previously computed values in an integer array.
+- If it has been computed, it just returns the cache.
+```java
+void allFib(int n) {
+    int[] memo = new int[n + 1];
+    for (int i = 0; i < n; i++) {
+        System.out.println(i + ": " + fib(i, memo));
+    }
+}
+
+int fib(int n, int[] memo) {
+    if (n <= 0) return 0;
+    else if (n == 1) return 1;
+    else if (memo[n] > 0) return memo[n];
+
+    memo[n] = fib(n - 1, memo) + fib(n - 2, memo);
+    return memo[n];
+}
+```
+- Let's walk through what happens:
+```
+fib(1) --> return 1
+fib(2)
+    fib(1) -> return 1
+    fib(0) -> return 0
+    store 1 at memo[2]
+fib(3)
+    fib(2) -> lookup memo[2] -> return 1
+    fib(1) -> return 1
+    store 2 at memo[3]
+fib(4)
+    fib(3) -> lookup memo[3] -> return 2
+    fib(2) -> lookup memo[2] -> return 1
+    store 3 at memo[4]
+fib(5)
+    fib(4) -> lookup memo[4] -> return 3
+    fib(3) -> lookup memo[3] -> return 2
+    store 5 at memo[5]
+...
+```
+- At each call `fib(i)`, we already computed and stored values for `fib(i - 1)` and `fib(i - 2)`.
+- Look those values up, sum them, store the new result, and return.
+- This takes constant time.
+- We do this constant work *N* times, so this is *O(N)* time.
+- This is called **Memoization**.
+
+#### Example 16
+- The function prints the power of 2 from 1 through *n* (inclusive).
+- If *n* is 4, it prints 1, 2, and 4.
+```java
+int powersOf2(int n) {
+    if (n < 1) {
+        return 0;
+    } else if (n == 1) {
+        System.out.println(1);
+        return 1;
+    } else {
+        int prev = powersOf2(n / 2);
+        int curr = prev * 2;
+        System.out.println(curr);
+        return curr;
+    }
+}
+```
+- There are several ways to compute runtime:
+    - **What It Does?**:
+        - Walk through a call like `powersOf2(50)`.
+            ```
+            -> powersOf2(50)
+                -> powersOf2(25)
+                    -> powersOf2(12)
+                        -> powersOf2(6)
+                            -> powersOf2(3)
+                                -> powersOf2(1)
+                                    -> print & return 1
+                                print & return 2
+                            print & return 4
+                        print & return 8
+                    print & return 16
+                print & return 32
+            ```
+        - Runtime is the number of times we can divide 50 (or n) by 2 until we get down to the case case (1).
+        - The number of times we halve *n* until we get 1 is *O(log N)*.
+    - **What It Means**:
+        - It's supposed to be computing the powers of 2 from 1 to *n*.
+        - Calls to `powersOf2` results in one number being printed and returned.
+        - If algorithm prints 13 values, `powersOf2` is called 13 times.
+        - We are told that it prints all powers of 2 between 1 and *n*. So, the number of times the function is called must be the same as the number of powers of 2 between 1 and *n*.
+        - There are `log N` powers of 2 between 1 and *n*.
+        - Runtime is *O(log N)*.
+    - **Rate of Increase**:
+        - Think about how runtimes change as *n* gets bigger.
+        - Number of calls to `powersOf2` increases by 1 each time *n* doubles in size.
+        - The number of calls to `powersOf2` is the number of times you can double 1 until you get *n*.
+        - It is *x* in the equation: 2<sup>x</sup> = *n*.
+        - What is *x*? It is `log n`.
+        - Runtime is *O(log N)*.
